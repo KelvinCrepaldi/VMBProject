@@ -2,23 +2,15 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
+        <v-avatar class="mr-10" color="black darken-1" size="32"
+          ><v-icon dark> mdi-currency-btc </v-icon></v-avatar
+        >
 
-        <v-btn v-for="link in links" :key="link" text>
-          {{ link }}
-        </v-btn>
+        <h1>VBM Project</h1>
 
         <v-spacer></v-spacer>
 
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
+        <v-responsive max-width="260"> </v-responsive>
       </v-container>
     </v-app-bar>
 
@@ -28,9 +20,26 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
-                <v-list-item v-for="n in 5" :key="n" link>
+                <v-text-field
+                  label="Filtrar"
+                  auto-grow
+                  variant="outlined"
+                  rows="1"
+                  row-height="15"
+                  clearable=""
+                ></v-text-field>
+
+                <v-list-item
+                  v-for="(coin, index, key) in coins"
+                  :key="index"
+                  link
+                >
                   <v-list-item-content>
-                    <v-list-item-title> List Item {{ n }} </v-list-item-title>
+                    <v-list-item-title
+                      @click="fetchTrades(Object.keys(coins)[key], coin)"
+                    >
+                      {{ coin }}
+                    </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
@@ -47,7 +56,7 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <CoinData></CoinData>
+              <CoinDataTable></CoinDataTable>
             </v-sheet>
           </v-col>
         </v-row>
@@ -57,12 +66,37 @@
 </template>
 
 <script>
-import CoinData from "./CoinData.vue";
+import CoinDataTable from "./CoinDataTable.vue";
+import { useAppStore } from "@/store/app";
+
 export default {
   name: "LayoutPage",
-  components: { CoinData },
+  components: { CoinDataTable },
   data: () => ({
     links: ["Dashboard", "Messages", "Profile", "Updates"],
+    coins: {
+      WLUNA: "Wrapped LUNA Token",
+      XLM: "Stellar",
+      XRP: "XRP",
+      XTZ: "Tezos",
+      YBOFT: "BSC Young Boys",
+      YFI: "yearn.finance",
+      YGG: "Yield Guild Games",
+      ZRX: "0x",
+      ONS05BRL: "None",
+      CSH08BRL: "None",
+      P12BRL: "None",
+      FTBRL: "None",
+    },
   }),
+  setup() {
+    const appStore = useAppStore();
+    return { fetchTrades: appStore.fetchTrades };
+  },
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? "dark" : "light";
+    },
+  },
 };
 </script>

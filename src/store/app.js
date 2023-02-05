@@ -4,20 +4,22 @@ import axios from "axios";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
-    ticker: [],
+    trades: [],
+    coinName: "",
   }),
   getters: {
-    getTicker(state) {
-      return state.ticker;
+    getTrades(state) {
+      return state.trades;
     },
   },
   actions: {
-    async fetchData() {
+    async fetchTrades(key, coin) {
       try {
         const data = await axios.get(
-          "https://www.mercadobitcoin.net/api/BTC/ticker/"
+          `https://www.mercadobitcoin.net/api/${key}/trades/`
         );
-        this.ticker = data.data;
+        this.trades = data.data;
+        this.coinName = coin;
       } catch (error) {
         alert(error);
         console.log(error);
