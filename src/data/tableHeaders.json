@@ -1,0 +1,12 @@
+[
+  {
+    "title": "ID",
+    "align": "start",
+    "sortable": false,
+    "key": "tid"
+  },
+  { "title": "Amount", "key": "amount" },
+  { "title": "Date", "key": "date" },
+  { "title": "Price", "key": "price" },
+  { "title": "Type", "key": "type" }
+]
