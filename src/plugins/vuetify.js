@@ -35,7 +35,6 @@ export default createVuetify({
           success: "#4CAF50",
           warning: "#FFC107",
         },
-        background: "#4CAF50",
       },
     },
   },

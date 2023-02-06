@@ -19,11 +19,13 @@
 
       <v-container>
         <v-data-table
+          :sort-by="sortBy"
           v-if="getTrades"
           :headers="headers"
           :items="getTrades"
           :items-per-page="10"
           class="elevation-1"
+          multi-sort
         >
         </v-data-table>
       </v-container>
@@ -51,6 +53,8 @@ const getCoin = computed(() => {
   return store.selectedCoin;
 });
 
+const sortBy = [{ key: "date", order: "desc" }];
+
 const dataFrom = ref(new Date());
 
 const dataTo = ref(new Date());
@@ -60,6 +64,6 @@ const handleFilterDate = () => {
 };
 
 onMounted(() => {
-  store.fetchTrades({ key: "ETH", name: "Etherium" });
+  store.fetchTrades({ key: "ETH", name: "Ethereum" });
 });
 </script>

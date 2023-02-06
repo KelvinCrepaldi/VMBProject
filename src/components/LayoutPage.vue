@@ -1,12 +1,12 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar app color="white" flat>
+  <v-app id="inspire" class="bg-primary">
+    <v-app-bar app flat class="bg-transparent">
       <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="green darken-1" size="32"
+        <v-avatar class="mr-10" color="green darken-1" size="40"
           ><v-icon dark> mdi-currency-btc </v-icon></v-avatar
         >
 
-        <h1>VBM Project</h1>
+        <h1>BitcoinMarket.vue</h1>
 
         <v-spacer></v-spacer>
 
@@ -19,27 +19,21 @@
         <v-row>
           <v-col cols="2">
             <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-text-field
-                  label="Buscar..."
-                  auto-grow
-                  variant="outlined"
-                  rows="1"
-                  row-height="15"
-                  clearable=""
-                  v-model="searchValue"
-                ></v-text-field>
-                <v-list-item
-                  v-for="(coin, index) in coinsList"
-                  :key="index"
-                  link
-                >
-                  <v-list-item-content>
-                    <v-list-item-title @click="fetchTrades(coin)">
-                      {{ coin.key }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                  <v-divider class="my-2"></v-divider>
+              <v-text-field
+                class="bg-primary"
+                label="Buscar..."
+                auto-grow
+                variant="outlined"
+                rows="1"
+                row-height="15"
+                clearable=""
+                v-model="searchValue"
+              ></v-text-field>
+              <v-list class="bg-primary" max-height="70vh">
+                <v-list-item v-for="(coin, index) in coinsList" :key="index">
+                  <v-btn class="w-100 my-1" @click="fetchTrades(coin)">
+                    {{ coin.key }}
+                  </v-btn>
                 </v-list-item>
               </v-list>
             </v-sheet>
@@ -85,3 +79,25 @@ export default {
   },
 };
 </script>
+
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #0000002d;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #383838;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
+</style>

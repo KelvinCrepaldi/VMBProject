@@ -25,9 +25,19 @@ export const useAppStore = defineStore("app", {
         );
         data.data.forEach((element) => {
           const date = new Date(element.date * 1000);
-          element.date = `${date}`;
+          const formatHours = ("0" + date.getHours()).substr(-2);
+          const formatMinutes = ("0" + date.getMinutes()).substr(-2);
+          const formatSeconds = ("0" + date.getSeconds()).substr(-2);
+          const formatDay = ("0" + date.getDate()).substr(-2);
+          const formatMouth = ("0" + (date.getMonth() + 1)).substr(-2);
+
+          const dateString = ` ${formatDay}/${formatMouth}/${date.getFullYear()} - ${formatHours}:${formatMinutes}:${formatSeconds}`;
+
+          element.date = dateString;
+
           return element;
         });
+
         this.trades = data.data;
         this.selectedCoin = coin;
       } catch (error) {
