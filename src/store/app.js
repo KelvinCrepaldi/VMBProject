@@ -8,6 +8,7 @@ export const useAppStore = defineStore("app", {
     trades: [],
     selectedCoin: "",
     coinsList: coins,
+    total: 0,
   }),
   getters: {
     getTrades(state) {

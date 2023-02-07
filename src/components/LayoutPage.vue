@@ -26,7 +26,6 @@
                 variant="outlined"
                 rows="1"
                 row-height="15"
-                clearable=""
                 v-model="searchValue"
               ></v-text-field>
               <v-list class="bg-primary" max-height="70vh">
