@@ -12,25 +12,32 @@
 
       <v-row class="mx-auto text-center">
         <p class="w-100 text-center">
-          No período de "{{ getLatestTrade.dateStr }}"" até "{{
-            getOldestTrade.dateStr
-          }}", foram negociados {{ getSumTradesBRL }}
+          {{
+            $t("message.tradePeriod", {
+              date1: getLatestTrade.dateStr,
+              date2: getOldestTrade.dateStr,
+              sumValue: getSumTradesBRL,
+            })
+          }}
         </p>
         <p class="w-100 text-center">
-          A lista é limitada em mostrar até 1000 negociações por vez.
+          {{ $t("message.limitMessage") }}
         </p>
       </v-row>
 
       <v-row class="mx-auto mb-1" width="90%">
         <v-col cols="4">
-          De:
+          {{ $t("message.from") }}
           <Datepicker v-model="dataFrom" :max-date="new Date()"></Datepicker>
         </v-col>
         <v-col cols="4">
-          Até: <Datepicker v-model="dataTo" :max-date="new Date()"></Datepicker>
+          {{ $t("message.to") }}
+          <Datepicker v-model="dataTo" :max-date="new Date()"></Datepicker>
         </v-col>
         <v-col class="d-flex align-end mb-1">
-          <v-btn class="d-flex" @click="handleFilterDate">Filtrar</v-btn>
+          <v-btn class="d-flex" width="150" @click="handleFilterDate"
+            >{{ $t("message.filter") }}
+          </v-btn>
         </v-col>
       </v-row>
 

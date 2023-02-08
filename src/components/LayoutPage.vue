@@ -9,6 +9,7 @@
         <h1>BitcoinMarket.vue</h1>
 
         <v-spacer></v-spacer>
+        <LocaleChanger></LocaleChanger>
 
         <v-responsive max-width="260"> </v-responsive>
       </v-container>
@@ -21,7 +22,7 @@
             <v-sheet rounded="lg">
               <v-text-field
                 class="bg-containers rounded-lg"
-                label="Buscar..."
+                v-bind:label="$t('message.search')"
                 auto-grow
                 variant="filled"
                 rows="1"
@@ -53,10 +54,11 @@
 <script>
 import DataTable from "./DataTable.vue";
 import { useAppStore } from "@/store/app";
+import LocaleChanger from "./LocaleChanger.vue";
 
 export default {
   name: "LayoutPage",
-  components: { DataTable },
+  components: { DataTable, LocaleChanger },
   data: () => ({
     searchValue: "",
   }),
