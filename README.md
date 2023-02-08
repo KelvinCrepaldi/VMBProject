@@ -1,4 +1,16 @@
-# default
+# BitcoinMarket.vue
+
+App para listar negociações de moedas digitais usando a API https://www.mercadobitcoin.com.br/api-doc/ sendo possivel filtrar por datas determinadas pelo usuario.
+As requisições são limitadas em 1000 negociações por vez.
+
+# Tecnologias
+
+- vue.js 3
+- vuetify
+- axios
+- pinea
+- vercel
+- json
 
 ## Project setup
 
