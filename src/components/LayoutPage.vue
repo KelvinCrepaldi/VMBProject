@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire" class="bg-primary">
-    <v-app-bar app flat class="bg-transparent">
+  <v-app id="inspire" class="bg-bgcolor">
+    <v-app-bar app flat class="bg-containers">
       <v-container class="py-0 fill-height">
         <v-avatar class="mr-10" color="green darken-1" size="40"
           ><v-icon dark> mdi-currency-btc </v-icon></v-avatar
@@ -20,17 +20,18 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-text-field
-                class="bg-primary"
+                class="bg-containers rounded-lg"
                 label="Buscar..."
                 auto-grow
-                variant="outlined"
+                variant="filled"
                 rows="1"
                 row-height="15"
                 v-model="searchValue"
+                append-inner-icon="mdi-magnify"
               ></v-text-field>
-              <v-list class="bg-primary" max-height="70vh">
+              <v-list class="bg-containers rounded-lg" max-height="70vh">
                 <v-list-item v-for="(coin, index) in coinsList" :key="index">
-                  <v-btn class="w-100 my-2" @click="fetchTrades(coin)">
+                  <v-btn class="w-100 my-1" @click="fetchTrades(coin)">
                     {{ coin.key }}
                   </v-btn>
                 </v-list-item>
@@ -88,11 +89,13 @@ export default {
 /* Track */
 ::-webkit-scrollbar-track {
   background: #0000002d;
+  border-radius: 30px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #383838;
+  border-radius: 30px;
 }
 
 /* Handle on hover */

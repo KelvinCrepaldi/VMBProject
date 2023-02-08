@@ -13,22 +13,22 @@ const formatterBRL = new Intl.NumberFormat("en-US", {
 });
 
 function findMostRecentandOldestDate(list) {
-  let mostRecentDate = list[0]; // earliest possible date
-  let mostOldestDate = list[0];
+  let latestTrade = list[0]; // earliest possible date
+  let oldestTrade = list[0];
 
   list.forEach((item) => {
-    if (item.date > mostRecentDate.date) {
-      mostRecentDate = item;
+    if (item.date < latestTrade.date) {
+      latestTrade = item;
     }
 
-    if (item.date < mostOldestDate.date) {
-      mostOldestDate = item;
+    if (item.date > oldestTrade.date) {
+      oldestTrade = item;
     }
   });
 
   return {
-    mostRecentDate: mostRecentDate,
-    mostOldestDate: mostOldestDate,
+    latestTrade,
+    oldestTrade,
   };
 }
 
@@ -38,9 +38,8 @@ export const useAppStore = defineStore("app", {
     selectedCoin: "",
     coinsList: coins,
     sumTradesBRL: 0,
-    USDtoBRL: [],
-    latestTrade: {},
-    oldestTrade: {},
+    latestTrade: "",
+    oldestTrade: "",
   }),
   getters: {
     getTrades(state) {
@@ -50,11 +49,16 @@ export const useAppStore = defineStore("app", {
       return state.coinsList;
     },
     getSumTradesBRL(state) {
-      const calcBRL = state.sumTradesBRL * state.USDtoBRL.high;
-      return formatterBRL.format(calcBRL);
+      return formatterBRL.format(state.sumTradesBRL);
     },
     getSelectedCoin(state) {
       return state.selectedCoin;
+    },
+    getLatestTrade(state) {
+      return state.latestTrade;
+    },
+    getOldestTrade(state) {
+      return state.oldestTrade;
     },
   },
   actions: {
@@ -63,8 +67,8 @@ export const useAppStore = defineStore("app", {
         let dataTrades = [];
 
         if (sinceDate) {
-          const sinceEraUnix = Math.floor(sinceDate.getTime() / 1000);
-          const untilEraUnix = Math.floor(untilDate.getTime() / 1000);
+          const sinceEraUnix = Math.floor(sinceDate / 1000);
+          const untilEraUnix = Math.floor(untilDate / 1000);
           dataTrades = await axios.get(
             `https://www.mercadobitcoin.net/api/${coin.key}/trades/${sinceEraUnix}/${untilEraUnix}/`
           );
@@ -89,39 +93,28 @@ export const useAppStore = defineStore("app", {
           const totalPerRow = element.amount * element.price;
           element.total = totalPerRow;
 
-          //format values to USD monetary value
+          //format values to BRL monetary value
           element.totalBRL = formatterBRL.format(element.total);
           element.priceBRL = formatterBRL.format(element.price);
 
           return element;
         });
-
         this.trades = dataTrades.data;
 
+        // sum all trades and calculate total
         this.sumTradesBRL = this.trades.reduce((acc, current) => {
           return acc + current.total;
         }, 0);
 
+        //selected coin
         this.selectedCoin = coin;
 
+        // find the dates of the filtered period
         const findDatesOfPeriod = findMostRecentandOldestDate(this.trades);
-
-        this.latestTrade = findDatesOfPeriod[0];
-        this.oldestTrade = findDatesOfPeriod[1];
+        this.latestTrade = findDatesOfPeriod.latestTrade;
+        this.oldestTrade = findDatesOfPeriod.oldestTrade;
       } catch (error) {
         alert(error);
-        console.log(error);
-      }
-    },
-    async fetchUSDtoBRL() {
-      try {
-        const data = await axios.get(
-          `https://economia.awesomeapi.com.br/json/USD-BRL`
-        );
-        this.USDtoBRL = data.data[0];
-      } catch (error) {
-        alert(error);
-        console.log(error);
       }
     },
   },
