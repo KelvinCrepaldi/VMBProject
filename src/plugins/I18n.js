@@ -17,8 +17,7 @@ const messages = {
     message: {
       tradePeriod:
         "In the period from {date1} to {date2}, {sumValue} were traded.",
-      limitMessage:
-        "The list is limited to showing up to 1000 trades at a time.",
+      limitMessage: "The list is limited to showing up 1000 trades at a time.",
       from: "From:",
       to: "To:",
       search: "Search...",

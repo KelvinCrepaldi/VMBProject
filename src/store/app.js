@@ -78,6 +78,10 @@ export const useAppStore = defineStore("app", {
           );
         }
 
+        if (dataTrades.data.length === 0) {
+          throw new Error("Coin not found in database.");
+        }
+
         dataTrades.data.forEach((element) => {
           //format date
           const date = new Date(element.date * 1000);
@@ -114,6 +118,7 @@ export const useAppStore = defineStore("app", {
         this.latestTrade = findDatesOfPeriod.latestTrade;
         this.oldestTrade = findDatesOfPeriod.oldestTrade;
       } catch (error) {
+        console.log(error);
         alert(error);
       }
     },

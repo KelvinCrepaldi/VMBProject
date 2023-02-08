@@ -2,12 +2,7 @@
   <v-container fill-height class="hello bg-containers rounded-lg">
     <h1 class="text-center">Trades</h1>
 
-    <v-card
-      class="mx-auto"
-      width="90%"
-      prepend-icon="mdi-hand-coin 
-"
-    >
+    <v-card class="mx-auto" width="90%" prepend-icon="mdi-hand-coin">
       <template v-slot:title> {{ getSelectedCoin.name }} </template>
 
       <v-row class="mx-auto text-center">
