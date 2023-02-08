@@ -3,9 +3,16 @@
     <h1 class="text-center">Trades</h1>
 
     <v-card class="mx-auto" width="90%" prepend-icon="mdi-hand-coin ">
-      <template v-slot:title> {{ getCoin.name }} </template>
+      <template v-slot:title> {{ getSelectedCoin.name }} </template>
 
-      <v-row class="mx-auto" width="90%">
+      <v-row class="mx-auto text-center"
+        ><p class="w-100 text-center">
+          No período, forma negociados {{ getSumTradesUSD }} ou
+          {{ getSumTradesBRL }}
+        </p></v-row
+      >
+
+      <v-row class="mx-auto mb-1" width="90%">
         <v-col cols="4">
           De: <Datepicker v-model="dataFrom"></Datepicker>
         </v-col>
@@ -26,6 +33,7 @@
           :items-per-page="10"
           class="elevation-1"
           multi-sort
+          density="compact"
         >
         </v-data-table>
       </v-container>
@@ -49,21 +57,29 @@ const getTrades = computed(() => {
   return store.getTrades;
 });
 
-const getCoin = computed(() => {
-  return store.selectedCoin;
+const getSelectedCoin = computed(() => {
+  return store.getSelectedCoin;
+});
+
+const getSumTradesUSD = computed(() => {
+  return store.getSumTradesUSD;
+});
+const getSumTradesBRL = computed(() => {
+  return store.getSumTradesBRL;
 });
 
 const sortBy = [{ key: "date", order: "desc" }];
 
-const dataFrom = ref(new Date());
+const dataFrom = ref();
 
-const dataTo = ref(new Date());
+const dataTo = ref();
 
 const handleFilterDate = () => {
-  store.fetchTradesByDate(store.selectedCoin, dataFrom.value, dataTo.value);
+  store.fetchTrades(store.selectedCoin, dataFrom.value, dataTo.value);
 };
 
 onMounted(() => {
   store.fetchTrades({ key: "ETH", name: "Ethereum" });
+  store.fetchUSDtoBRL();
 });
 </script>

@@ -30,7 +30,7 @@
               ></v-text-field>
               <v-list class="bg-primary" max-height="70vh">
                 <v-list-item v-for="(coin, index) in coinsList" :key="index">
-                  <v-btn class="w-100 my-1" @click="fetchTrades(coin)">
+                  <v-btn class="w-100 my-2" @click="fetchTrades(coin)">
                     {{ coin.key }}
                   </v-btn>
                 </v-list-item>
@@ -40,7 +40,7 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <CoinDataTable></CoinDataTable>
+              <DataTable></DataTable>
             </v-sheet>
           </v-col>
         </v-row>
@@ -50,12 +50,12 @@
 </template>
 
 <script>
-import CoinDataTable from "./CoinDataTable.vue";
+import DataTable from "./DataTable.vue";
 import { useAppStore } from "@/store/app";
 
 export default {
   name: "LayoutPage",
-  components: { CoinDataTable },
+  components: { DataTable },
   data: () => ({
     searchValue: "",
   }),
