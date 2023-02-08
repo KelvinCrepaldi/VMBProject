@@ -5,8 +5,11 @@
     "sortable": false,
     "key": "tid"
   },
-  { "title": "Amount", "key": "amount" },
-  { "title": "Date", "key": "date" },
-  { "title": "Price", "key": "price" },
-  { "title": "Type", "key": "type" }
+  { "title": "Type", "key": "type" },
+  { "title": "Date", "key": "dateStr" },
+  { "title": "Amount", "key": "amount", "align": "end" },
+
+  { "title": "Price(BRL)", "key": "priceBRL", "align": "end" },
+
+  { "title": "Total(BRL)", "key": "totalBRL", "align": "end" }
 ]
